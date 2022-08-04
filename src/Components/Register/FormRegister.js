@@ -7,11 +7,13 @@ import Formu from "../../Context/Formu";
 import Disable from "../../Context/Disable"
 import { ThreeDots } from "react-loader-spinner";
 
-export default function Form() {
+export default function FormRegister() {
     const { Button } = useContext(UserContext);
     const [carregando, setCarregando] = useState(false);
     const [form, setForm] = useState({
         email: "",
+        name:"",
+        image:"",
         password: "",
     });
     const navigate = useNavigate();
@@ -27,9 +29,9 @@ export default function Form() {
         setCarregando(true);
         console.log(carregando);
         e.preventDefault();
-        const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", form);
+        const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", form);
         promise.then(() => {
-            navigate("/hoje")
+            navigate("/")
         }
         );
 
@@ -44,17 +46,23 @@ export default function Form() {
     return (
         <>
             <Formu onSubmit={makeLogin}>
-                {carregando ? (<><Disable><input type="email" placeholder="email" value={form.email} name="email" onChange={handleform} disabled="true" />
-                    <input type="password" placeholder="senha" value={form.password} name="password" onChange={handleform} disabled="true" />
+                {carregando ? (<><Disable>
+                    <input type="email" placeholder="email" value={form.email} name="email" onChange={handleform} disabled={true} />
+                    <input type="password" placeholder="senha" value={form.password} name="password" onChange={handleform} disabled={true} />
+                    <input type="text" placeholder="nome" value={form.name} name="name" onChange={handleform} disabled={true} />
+                    <input type="url" placeholder="foto" value={form.image} name="image" onChange={handleform} disabled={true} />
                     <Button type="submit" disabled="true"><ThreeDots   type="ThreeDots"
                             color="rgb(250, 250, 250)"
                             height={13}
                             width={51}
                             timeout={0} /></Button>
-                    <StyledLink to="/cadastro">Não tem uma conta? Cadastre-se!</StyledLink></Disable></>) : (<><input type="email" placeholder="email" value={form.email} name="email" onChange={handleform} required />
-                        <input type="password" placeholder="senha" value={form.password} name="password" onChange={handleform} required />
-                        <Button type="submit" >Entrar</Button>
-                        <StyledLink to="/cadastro">Não tem uma conta? Cadastre-se!</StyledLink></>)}
+                    <StyledLink to="/">Não tem uma conta? Cadastre-se!</StyledLink></Disable></>) : (<>
+                    <input type="email" placeholder="email" value={form.email} name="email" onChange={handleform} required />
+                    <input type="password" placeholder="senha" value={form.password} name="password" onChange={handleform} required />
+                    <input type="text" placeholder="nome" value={form.name} name="name" onChange={handleform} required />
+                    <input type="url" placeholder="foto" value={form.image} name="image" onChange={handleform} required />
+                        <Button type="submit" >Cadastrar</Button>
+                        <StyledLink to="/">Já tem uma conta? Faça login!</StyledLink></>)}
 
             </Formu>
         </>
@@ -72,4 +80,3 @@ display:flex;
 justify-content:center;
 margin-top:25px;
 `
-

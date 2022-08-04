@@ -6,8 +6,9 @@ flex-direction:column;
 align-items:center;
 justify-content:center;
 
+
+
 button{
-    display:block;
     opacity: 0.7;
 }
 
