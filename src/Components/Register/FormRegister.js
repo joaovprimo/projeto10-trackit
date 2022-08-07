@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 import UserContext from "../../Context/Context";
-import axios from "axios";
+import { postRegister } from "../Axios";
 import Formu from "../../Context/Formu";
 import Disable from "../../Context/Disable"
 import { ThreeDots } from "react-loader-spinner";
@@ -29,13 +29,10 @@ export default function FormRegister() {
         setCarregando(true);
         console.log(carregando);
         e.preventDefault();
-        const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", form);
-        promise.then(() => {
+        postRegister(form).then(() => {
             navigate("/")
         }
-        );
-
-        promise.catch(() => {
+        ).catch(() => {
             setCarregando(false);
             console.log("deu ruim")
             console.log(carregando)

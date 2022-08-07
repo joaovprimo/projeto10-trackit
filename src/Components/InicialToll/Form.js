@@ -2,18 +2,16 @@ import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 import UserContext from "../../Context/Context";
-import axios from "axios";
 import Formu from "../../Context/Formu";
 import Disable from "../../Context/Disable"
 import { ThreeDots } from "react-loader-spinner";
+import { postLogin } from "../Axios";
 
 export default function Form() {
     const { Button } = useContext(UserContext);
+    const { form,setForm } = useContext(UserContext);
     const [carregando, setCarregando] = useState(false);
-    const [form, setForm] = useState({
-        email: "",
-        password: "",
-    });
+    console.log(form);
     const navigate = useNavigate();
 
     function handleform(e) {
@@ -27,13 +25,12 @@ export default function Form() {
         setCarregando(true);
         console.log(carregando);
         e.preventDefault();
-        const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", form);
-        promise.then(() => {
-            navigate("/hoje")
+        postLogin(form).then((res) => {
+            localStorage.setItem("token", res.data.token);
+            setForm(res.data);
+            navigate("/hoje");
         }
-        );
-
-        promise.catch(() => {
+        ).catch(() => {
             setCarregando(false);
             console.log("deu ruim")
             console.log(carregando)
