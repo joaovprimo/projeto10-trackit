@@ -1,9 +1,9 @@
-import { getHabtToday } from "../Axios"
-import { useEffect, useState } from "react"
+import {postUncheckHabit } from "../Axios";
+import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
 import styled from 'styled-components';
-import {postChackHabit, postUncheckHabit} from "../Axios";
+import {getHabtToday, postChackHabit} from "../Axios";
 import { useContext} from "react";
 import UserContext from "../../Context/Context";
 import updateLocale from "dayjs/plugin/updateLocale";
@@ -26,7 +26,7 @@ export default function Today() {
         })
     }, [])
     
-    
+    console.log(habits[0]);
 function unCheck(hbt){
     postUncheckHabit(hbt).then(()=> getHabtToday().then((hbt) => {
         setHabits(hbt.data);   
@@ -35,6 +35,7 @@ function unCheck(hbt){
     if(cont > 0){
         setCont(cont-1);
     }
+    console.log(hbt.done)
 }
 
     function done(hbt){
@@ -43,6 +44,7 @@ function unCheck(hbt){
         })
         ).catch(()=> console.log("deu erro"));
         setCont(cont+1);
+        console.log(hbt.done)
     }
 
     return (
@@ -56,7 +58,7 @@ function unCheck(hbt){
                   }</Date>
                 
                 <ListHabts>
-                    {habits.map((hbt) => <><Habit> <BoxHabibt>
+                    {habits.map((hbt, i) => <><Habit> <BoxHabibt>
                         <h1>{hbt.name}</h1>
                         {hbt.currentSequence===hbt.highestSequence ? 
                         (<><p>Sequência atual: {hbt.currentSequence} dias</p>
@@ -66,7 +68,7 @@ function unCheck(hbt){
                          }
                        
                     </BoxHabibt>
-                    {hbt.done ? (<Click onClick={()=>unCheck(hbt)}>
+                    {hbt?.done ? (<Click onClick={()=>unCheck(hbt)}>
                     <ion-icon name="checkbox" done={hbt.done} ></ion-icon>
                     </Click>) :( <Click onClick={()=>done(hbt)}>
                     <ion-icon name="checkbox" done={hbt.done} ></ion-icon>
@@ -147,7 +149,7 @@ display:flex;
 `
 const Click = styled.div`
 ion-icon{
-    color: ${props=>props.done? `#8FC549`:`#EBEBEB`};
+    color: ${props=>props.done? `#8FC549`: `#EBEBEB`};
     margin-left:220px;
     width:70px;
     height:70px;

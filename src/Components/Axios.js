@@ -58,6 +58,10 @@ function postUncheckHabit(hbt){
     const promise = axios.post(`${Base_URL}habits/${hbt.id}/uncheck`,{hbt},config);
     return promise
 }
+ function getHistoric(){
+    const config = createHeaders();
+    const promise = axios.get(`${Base_URL}habits/history/daily`, config);
+    return promise
+ }
 
-
-export { postLogin, postRegister, getHabtToday, getHabtList, postHabit, deletHabit, postChackHabit, postUncheckHabit }
+export { postLogin, postRegister, getHabtToday, getHabtList, postHabit, deletHabit, postChackHabit, postUncheckHabit, getHistoric }
