@@ -27,15 +27,13 @@ export default function FormRegister() {
 
     function makeLogin(e) {
         setCarregando(true);
-        console.log(carregando);
         e.preventDefault();
         postRegister(form).then(() => {
             navigate("/")
         }
         ).catch(() => {
             setCarregando(false);
-            console.log("deu ruim")
-            console.log(carregando)
+            alert("Erro");
         });
 
     }

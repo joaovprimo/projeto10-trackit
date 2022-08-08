@@ -26,7 +26,7 @@ export default function Today() {
         })
     }, [])
     
-    console.log(habits[0]);
+    
 function unCheck(hbt){
     postUncheckHabit(hbt).then(()=> getHabtToday().then((hbt) => {
         setHabits(hbt.data);   
@@ -35,7 +35,7 @@ function unCheck(hbt){
     if(cont > 0){
         setCont(cont-1);
     }
-    console.log(hbt.done)
+   
 }
 
     function done(hbt){
@@ -44,7 +44,6 @@ function unCheck(hbt){
         })
         ).catch(()=> console.log("deu erro"));
         setCont(cont+1);
-        console.log(hbt.done)
     }
 
     return (
@@ -57,16 +56,18 @@ function unCheck(hbt){
                   }
                 
                 <ListHabts>
-                    {habits.map((hbt, i) => <><Habit> <BoxHabibt>
-                        <h1>{hbt.name}</h1>
-                        {hbt.currentSequence===hbt.highestSequence ? 
-                        (<><p>Sequência atual: {hbt.currentSequence} dias</p>
-                        <p>Seu recorde: {hbt.highestSequence} dias </p></>):
-                        (<><p>Sequência atual: {hbt.currentSequence} dias</p>
-                        <p>Seu recorde: {hbt.highestSequence} dias </p></>)
+                    {habits.map((hbt, i) => <><Habit> 
+                       {hbt.currentSequence===hbt.highestSequence ?
+                        (<><BoxHabibt color={"green"}>
+                        <h1>{hbt.name}</h1> <p>Sequência atual: {hbt.currentSequence} dias</p>
+                        <p>Seu recorde: {hbt.highestSequence} dias </p> 
+                        </BoxHabibt></>)
+                        :
+                        (<><BoxHabibt color={""}>
+                        <h1>{hbt.name}</h1><p>Sequência atual: {hbt.currentSequence} dias</p>
+                        <p>Seu recorde: {hbt.highestSequence} dias </p></BoxHabibt></>)
                          }
                        
-                    </BoxHabibt>
                     {hbt.done ? (<Click onClick={()=>unCheck(hbt) }done={hbt.done}>
                     <ion-icon name="checkbox" ></ion-icon>
                     </Click>) :( <Click onClick={()=>done(hbt)}>
@@ -130,7 +131,7 @@ h1{
 p{
     font-size: 13px;
 line-height: 16px;
-color: #666666;
+color: ${props=> props.color===""? ("#BABABA") :("#8FC549")};
 font-family: 'Lexend Deca';
 }
 

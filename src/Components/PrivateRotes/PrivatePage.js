@@ -8,9 +8,8 @@ import Footer from "./Common/Footer";
 export default function PrivatePage({children}){
     const navigate=useNavigate();
     const { form} = useContext(UserContext);
-    console.log(form);
    const auth = localStorage.getItem("token");
-         console.log(auth);
+         
         
         if(auth){
             return(   <>

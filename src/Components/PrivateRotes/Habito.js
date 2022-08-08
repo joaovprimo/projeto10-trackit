@@ -21,7 +21,7 @@ export default function Habito() {
     const [days, setDays] = useState([]);
     let i=0;
     const navigate = useNavigate();
-console.log(listHabits);
+
 
     function data(e) {
         e.preventDefault();
@@ -30,7 +30,7 @@ console.log(listHabits);
             name: namehbt,
             days: days,
         }
-        console.log(formhabit);
+        
         postHabit(formhabit).then((e) => { 
             getHabtList().then((hbt) => {
                 setCreatingHabit(!creatingHabit);
@@ -143,17 +143,13 @@ return null;
 
 
 function selectday(days, setDays, day) {
-    console.log(day);
     if (days.includes(day.id)) {
         setDays(days.filter(id => id !== day.id))
         day.clicked = !day.clicked;
-        console.log(day.clicked)
         return
     } else {
         setDays([...days, day.id])
-        day.clicked = !day.clicked;
-        console.log(day.clicked)
-        console.log(day)
+        day.clicked = !day.clicked;  
     }
 
 }

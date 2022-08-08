@@ -23,9 +23,7 @@ export default function App(){
     const nametop = nameimg;
     const [cont, setCont] = useState(0);
     const [doneToday, setDoneToday] = useState(0);
-    
-    console.log(cont);
-    console.log(doneToday);
+
 return(
 <>
     <GlobalStyle/>

@@ -11,7 +11,6 @@ export default function Form() {
     const { Button } = useContext(UserContext);
     const { form,setForm } = useContext(UserContext);
     const [carregando, setCarregando] = useState(false);
-    console.log(form);
     const navigate = useNavigate();
 
     function handleform(e) {
@@ -23,7 +22,6 @@ export default function Form() {
 
     function makeLogin(e) {
         setCarregando(true);
-        console.log(carregando);
         e.preventDefault();
         postLogin(form).then((res) => {
             localStorage.setItem("token", res.data.token);
@@ -33,7 +31,6 @@ export default function Form() {
         ).catch(() => {
             setCarregando(false);
             console.log("deu ruim")
-            console.log(carregando)
         });
 
     }

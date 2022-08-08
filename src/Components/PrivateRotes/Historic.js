@@ -11,7 +11,6 @@ export default function Historic(){
             setHistoric(hbt.data);
         })
     }, [])
-console.log(historic);
     return(
         <>
         <Content>
