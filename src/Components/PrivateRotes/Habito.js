@@ -19,9 +19,10 @@ export default function Habito() {
     { id: 6, name: "S", dayName: "Sabado", clicked: false }];
     const [namehbt, setNamahbt] = useState("");
     const [days, setDays] = useState([]);
-    console.log(namehbt);
+    let i=0;
     const navigate = useNavigate();
 console.log(listHabits);
+
     function data(e) {
         e.preventDefault();
 
@@ -57,7 +58,6 @@ return null;
         })
     }
         , [])
-
 
     if (listHabits.length === 0) {
         return (
@@ -103,7 +103,7 @@ return null;
             <BoxCreatingHabit>
                 <Formu onSubmit={data}>
                     <input type="text" placeholder="nome do hábito" value={namehbt} name="name" onChange={e => setNamahbt(e.target.value)} />
-                    <Days>{weekdays.map((day) => <Day key={day.id} clicked={day.clicked}
+                    <Days>{weekdays.map((day) => <Day clicked={day.clicked}
                         onClick={() => selectday(days, setDays, day)}>
                         {day.name}
                     </Day>)}
@@ -119,9 +119,15 @@ return null;
                        
                         {listHabits.map((hb)=>  <Habit> <BoxHabibt>
                             <h1>{hb.name}</h1>
-                            <Days>{weekdays.map((day) => <Day key={day.id} idday={day.id} hbindex={hb.days} clicked={day.clicked}>
-                        {day.name}
-                    </Day>)}
+                            <Days>{weekdays.map((day) => {
+                                if(day.id=== hb.days[i]){
+                            i++;
+                        return <DayChose> {day.name}</DayChose> 
+                       }else{        
+                            return <Daynotchose> {day.name}</Daynotchose>
+                        }
+                      })        
+                    }
                     </Days>
                         </BoxHabibt> 
                         <img src={del} alt="delete" onClick={()=> delet(hb.id) } />
@@ -135,16 +141,18 @@ return null;
 
 }
 
+
 function selectday(days, setDays, day) {
     console.log(day);
     if (days.includes(day.id)) {
         setDays(days.filter(id => id !== day.id))
         day.clicked = !day.clicked;
-        console.log(day)
+        console.log(day.clicked)
         return
     } else {
         setDays([...days, day.id])
         day.clicked = !day.clicked;
+        console.log(day.clicked)
         console.log(day)
     }
 
@@ -211,13 +219,39 @@ width: 30px;
 height: 30px;
 border: 1px solid #D5D5D5;
 border-radius: 5px;
-color: ${props => props.clicked || props.idday === props.hbindex ? "#FFFFFF" : "#DBDBDB"};
-background-color: ${props => props.clicked || props.idday === props.hbindex ? "#CFCFCF" : "#FFFFFF"};
+color: ${props => props.clicked  ? "#FFFFFF" : "#DBDBDB"};
+background-color: ${props => props.clicked ? "#CFCFCF" : "#FFFFFF"};
 margin-right:5px;
 display:flex;
 justify-content:center;
 align-items:center;
 `
+
+const DayChose  = styled.div`
+width: 30px;
+height: 30px;
+border: 1px solid #D5D5D5;
+border-radius: 5px;
+color: #FFFFFF;
+background-color: #CFCFCF;
+margin-right:5px;
+display:flex;
+justify-content:center;
+align-items:center;
+`
+const Daynotchose  = styled.div`
+width: 30px;
+height: 30px;
+border: 1px solid #D5D5D5;
+border-radius: 5px;
+color: #DBDBDB;
+background-color: #FFFFFF;
+margin-right:5px;
+display:flex;
+justify-content:center;
+align-items:center;
+`
+
 
 const Cancel = styled.button`
 color:rgba(82, 182, 255, 1);

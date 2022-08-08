@@ -41,13 +41,15 @@ right:0;
 background-color:#Fafafa;
 display:flex;
 justify-content:space-between;
+padding-top:20px;
+text-decoration:none;
 span{
-    margin:25px 60px;
+    margin:30px 60px;
     color: #52B6FF;
     line-height: 22px;
     font-size:18px;
-    font-weight: 400;
     font-weight:bold;
+    
 }
 `
 const Circulo = styled.div`

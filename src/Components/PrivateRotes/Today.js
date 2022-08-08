@@ -19,7 +19,7 @@ export default function Today() {
 
     setDoneToday(habits.length);
 
-    const percentage = ((cont/doneToday)*100);
+    const percentage = Math.round((cont/doneToday)*100);
     useEffect(() => {
         getHabtToday().then((hbt) => {
             setHabits(hbt.data);
@@ -50,12 +50,11 @@ function unCheck(hbt){
     return (
         <>
             <Content>
-            <Date>
-                    <span>{weekday}, {day}</span>
-                {cont === 0 ? 
-                ( <p>Nenhum hábito concluído ainda</p>) 
-                : (<p color={"green"}>{percentage}% dos habitos concluídos</p>)
-                  }</Date>
+                    
+                {cont === 0 ?
+                (  <Date color={""}><span>{weekday}, {day}</span><p>Nenhum hábito concluído ainda</p></Date>) 
+                : (<Date color={"green"}><span>{weekday}, {day}</span> <p>{percentage}% dos habitos concluídos</p></Date>)
+                  }
                 
                 <ListHabts>
                     {habits.map((hbt, i) => <><Habit> <BoxHabibt>
@@ -68,10 +67,10 @@ function unCheck(hbt){
                          }
                        
                     </BoxHabibt>
-                    {hbt?.done ? (<Click onClick={()=>unCheck(hbt)}>
-                    <ion-icon name="checkbox" done={hbt.done} ></ion-icon>
+                    {hbt.done ? (<Click onClick={()=>unCheck(hbt) }done={hbt.done}>
+                    <ion-icon name="checkbox" ></ion-icon>
                     </Click>) :( <Click onClick={()=>done(hbt)}>
-                    <ion-icon name="checkbox" done={hbt.done} ></ion-icon>
+                    <ion-icon name="checkbox"></ion-icon>
                     </Click>)}
                     
                     </Habit>
