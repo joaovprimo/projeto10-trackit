@@ -47,5 +47,17 @@ function deletHabit(id){
     return promise
 }
 
+function postChackHabit(hbt){
+    const config = createHeaders();
+    const promise = axios.post(`${Base_URL}habits/${hbt.id}/check`,{hbt},config);
+    return promise
+}
 
-export { postLogin, postRegister, getHabtToday, getHabtList, postHabit, deletHabit }
+function postUncheckHabit(hbt){
+    const config = createHeaders();
+    const promise = axios.post(`${Base_URL}habits/${hbt.id}/uncheck`,{hbt},config);
+    return promise
+}
+
+
+export { postLogin, postRegister, getHabtToday, getHabtList, postHabit, deletHabit, postChackHabit, postUncheckHabit }

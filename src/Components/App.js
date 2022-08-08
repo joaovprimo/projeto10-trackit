@@ -21,11 +21,15 @@ export default function App(){
     });
     const logoimg = tackitimg;
     const nametop = nameimg;
+    const [cont, setCont] = useState(0);
+    const [doneToday, setDoneToday] = useState(0);
+    console.log(cont);
+    console.log(doneToday);
 return(
 <>
     <GlobalStyle/>
     <BrowserRouter>
-    <UserContext.Provider value={{logoimg, nametop, Button, form, setForm, del}}>
+    <UserContext.Provider value={{logoimg, nametop, Button, form, setForm, del, cont, setCont, doneToday , setDoneToday}}>
     <Routes>
     <Route path="/" element={<InicialTool/>}/>
     <Route path="/cadastro" element={<Register/>}/>
